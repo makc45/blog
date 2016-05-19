@@ -1,0 +1,213 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.AuthBlock{
+    margin: 20px 0;
+}
+.AuthBlock input{
+    margin-bottom: 5px;
+    padding-left: 10px;
+}
+.errorColor{
+    color: red;
+    font-size: 12px;
+}
+
+.BlogBlock,.addBlog{
+    margin: 20px 0;
+}
+.BlogBlock textarea{resize: vertical;height: 70px;}
+.BlogAddVvod{
+    margin: 17px 0 0 0;
+    padding-left: 5px;
+    width: 600px;
+}
+.TagBlock{ padding-right: 25px;}
+.Blogs{
+    float: left;
+    width: 100%;
+    margin-left: -250px;
+    padding-left: 250px;
+}
+.BlogsContent{
+    width: 100%;
+    margin-top: 20px;
+}
+.BlogsContent table{
+    width: 100%;
+}
+.BlogFilters{
+    width: 200px;
+    float: left;
+    margin-left: 40px;
+}
+.filterEl{
+    margin-bottom: 15px;
+}
+.filterMonth button{
+    width: 80px;
+    margin: 0 5px 10px 0;
+}
+.filterTeg button{
+    margin: 0 5px 10px 0;
+}
+.botTab{
+    margin-bottom: 17px;
+    display: inline-block;
+    padding-bottom: 9px;
+    width: 100%;
+    margin-top: 12px;
+}
+.avtor{
+    min-width: 140px;
+    text-align: right;
+}
+
+.tags{
+    margin: 15px 0;
+    display: block;
+}
+.tags h3,.zagComm h3 {
+    margin: 0;
+}
+.BlogDel{
+    margin-top: 10px;
+    display: block;
+}
+
+
+
+
+
+
+.ng-modal-overlay {
+    /* полупорозрачный DIV, который охватывает весь экран */
+    position:absolute;
+    z-index:9999;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:#000000;
+    opacity: 0.8;
+}
+.ng-modal-dialog {
+    /* Отцентрированный даилог с тенью */
+    z-index:10000;
+    position: absolute;
+    width: 50%;
+
+    /* Центрирование */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+
+    background-color: #fff;
+    box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+    padding:10px;
+    text-align: left;
+}
+.ng-modal-close {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 120%;
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'arial', 'sans-serif';
+}
