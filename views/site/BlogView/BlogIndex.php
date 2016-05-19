@@ -95,9 +95,9 @@
                         {?>         
                             <tr class="zagComm"><td><h3><?php echo $CommentsEl['id_user']==-1? "Гость":$users[$CommentsEl['id_user']]; ?></h3></td></tr>
                         <tr><td><?=$CommentsEl['text_comment']?></td></tr>
-                        <?php if(!Yii::$app->user->isGuest){?>  
+                         
                         <tr><td><button ng-click="CommentDel(<?=$CommentsEl['id']?>)">Удалить комментарий</button></td></tr>
-                        <?php } }
+                        <?php  }
                         
                 }
                 ?>
