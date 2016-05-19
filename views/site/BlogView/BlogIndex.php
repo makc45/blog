@@ -106,7 +106,7 @@
             
             <tr class="botTab"><td ng-controller="MessageCtrl"><button ng-click="MessegeOpenView()">Оставить комментарий</button>&nbsp;&nbsp; {{MessageSendError}}
                 <div ng-show="MessegeView">
-                <textarea class="BlogAddVvod" autocomplete="off" ng-model="MessageText" placeholder = "Введите отзыв"></textarea><br>  
+                <textarea class="BlogAddVvod" autocomplete="off" ng-model="MessageText" placeholder = "Введите комментарий"></textarea><br>  
                 <button ng-click="MessegeSend(MessageText,<?=$blog_el['id']?>)">Отправить</button>
                 <span class="errorColor">{{MessageError}}</span>
                 </div>
