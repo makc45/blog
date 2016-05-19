@@ -20,7 +20,7 @@ siteApp.controller('Authentication',
             $scope.vhodViwe=false;
             $scope.regErorr="";
         };
-    //Кнобка проверки логин пароля и входа(обновление состояния пользователя)
+    //Кнопка проверки логин пароля и входа(обновление состояния пользователя)
         $scope.loginPush=function(login,pass){
             $http.post('/web/index.php?r=site/login',
             {_csrf: yii.getCsrfToken(),LoginForm:{username:login,password:pass,rememberMe:1}})
