@@ -44,8 +44,13 @@ siteApp.controller('Authentication',
             $http.post('/web/index.php?r=site/logout',
             {_csrf: yii.getCsrfToken()})
             .success(function(response) {
-                
                 $scope.AuthenticationBlock =response;
+                $scope.vhodViwe=false;
+                $scope.regViwe=false;
+                $scope.loginErorr="";
+                $scope.login="";
+                $scope.pass="";
+                
                 blogR();
             
             }, 
