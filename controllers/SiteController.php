@@ -51,8 +51,7 @@ class SiteController extends Controller
     }
 
     public function actionIndex()
-    {
-       
+    {       
         return $this->render('index');
     }
 
@@ -60,18 +59,15 @@ class SiteController extends Controller
     {
         $rez=array();
         $rez['error']=0;
-        if (!Yii::$app->user->isGuest) {
-            
+        if (!Yii::$app->user->isGuest) {            
             $rez['error']=1;
             $rez['errorMess']='Вы уже авторизованны';
             return json_encode($rez);
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            
-            $rez['text'] = $this->actionViewauth();
-            
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {            
+            $rez['text'] = $this->actionViewauth();            
             return json_encode($rez);
         }
             $rez['error']=1;
@@ -80,14 +76,12 @@ class SiteController extends Controller
             return json_encode($rez);
     }
     public function actionViewauth(){
-        return $this->getView()->render('authentication', $params=[], $this);
-    
+        return $this->getView()->render('authentication', $params=[], $this);    
     }
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->actionViewauth();
     }
 
@@ -129,18 +123,15 @@ class SiteController extends Controller
             case "GET":
                 echo 111;
                 break;
-            case "POST":
-                
-                if(Yii::$app->user->isGuest)
-                    { $id=-1;}
-                else { $id=Yii::$app->user->identity->id;}
-                
-                $model->addComment(Yii::$app->request->post(),$id);
+            case "POST":                
+                    if(Yii::$app->user->isGuest)
+                        { $id=-1;}
+                    else { $id=Yii::$app->user->identity->id;}                
+                    $model->addComment(Yii::$app->request->post(),$id);
                 break;
             case "DELETE":
-                    $model->DelComment(Yii::$app->request->post());
-                    
-                    break;
+                    $model->DelComment(Yii::$app->request->post());                    
+                break;
             }
     }
     
@@ -165,8 +156,7 @@ class SiteController extends Controller
         $model = new Blog();
         switch($method)
             {
-                case "GET": 
-                    
+                case "GET":                     
                     $get=Yii::$app->request->get();
                     $getMonth="";
                     $getTags="";
@@ -190,29 +180,24 @@ class SiteController extends Controller
                             $Rating=$model->GetRating();
                             $BlogTag=$model->GetBlogTags();
                             $rez['text'] = $this->getView()->render('BlogView/BlogIndex', 
-                                    $params=[
-                                        "blog"=>$Blog,
-                                        "users"=>$Users,
-                                        "month"=>$Month,
-                                        "tags"=>$Tags,
-                                        "BlogTag"=>$BlogTag,
-                                        "Comments"=>$comments,
-                                        "Rating"=>$Rating
-                                    ], $this);
-                            echo json_encode($rez);
-                       
+                                $params=[
+                                    "blog"=>$Blog,
+                                    "users"=>$Users,
+                                    "month"=>$Month,
+                                    "tags"=>$Tags,
+                                    "BlogTag"=>$BlogTag,
+                                    "Comments"=>$comments,
+                                    "Rating"=>$Rating
+                                ], $this);
+                            echo json_encode($rez);                       
                     break;
                 case "POST":
-                    $id=Yii::$app->user->identity->id;
-                    
-                    $model->addBlog(Yii::$app->request->post(),$id);
-                    
+                        $id=Yii::$app->user->identity->id;                    
+                        $model->addBlog(Yii::$app->request->post(),$id);                    
                     break;
                 case "DELETE":
-                    $model->DelBlog(Yii::$app->request->post());
-                    
+                        $model->DelBlog(Yii::$app->request->post());
                     break;
             }
     }
-
 }

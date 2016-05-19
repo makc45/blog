@@ -1,11 +1,8 @@
 siteApp.controller('Blog',
-    function Blog($scope, $http, $rootScope){
-        //Выводим при загрузке страницы состояние пользователя
-        
+    function Blog($scope, $http, $rootScope){     
         $scope.Tags=[];
         $scope.BlogNewTags=[];
-        function BlogReload(){
-        
+        function BlogReload(){        
             $http.get('/web/index.php?r=site/blog')
                 .success(function(response) {
                     $scope.Tags=response.tags;
@@ -14,40 +11,38 @@ siteApp.controller('Blog',
                 function(response) {// failed
                     console.log(response);
                 });
-            }
-        
+            }                  
+    BlogReload();
 //Месяц по умолчанию
-        $scope.BlogMonth="1";
+    $scope.BlogMonth="1";
 //Массив месяцов
-        $scope.Months=[ {value: '1', name:  'Январь'},
-                        {value: '2', name:  'Февраль'},
-                        {value: '3', name:  'Март'},
-                        {value: '4', name:  'Апрель'},
-                        {value: '5', name:  'Май'},
-                        {value: '6', name:  'Июнь'},
-                        {value: '7', name:  'Июль'},
-                        {value: '8', name:  'Август'},
-                        {value: '9', name:  'Сентябрь'},
-                        {value: '10',name:  'Октябрь'},
-                        {value: '11',name:  'Ноябрь'},
-                        {value: '12',name:  'Декабрь'}];
+    $scope.Months=[ {value: '1', name:  'Январь'},
+                    {value: '2', name:  'Февраль'},
+                    {value: '3', name:  'Март'},
+                    {value: '4', name:  'Апрель'},
+                    {value: '5', name:  'Май'},
+                    {value: '6', name:  'Июнь'},
+                    {value: '7', name:  'Июль'},
+                    {value: '8', name:  'Август'},
+                    {value: '9', name:  'Сентябрь'},
+                    {value: '10',name:  'Октябрь'},
+                    {value: '11',name:  'Ноябрь'},
+                    {value: '12',name:  'Декабрь'}];
 //Фильтр для показа тегов для добавления
     $scope.filterNotInCurrent = function(item) {
         var rez=1;
         $scope.BlogNewTags.forEach(function(el, i, arr) {
             if(item.id==el.id) rez=0;
-
           });
-        return rez;//($scope.current().indexOf(item) == -1);
+        return rez;
         };
-    BlogReload();
 //Кнопка для формы добавления записи
     $scope.BlogAdd = function () {
         $scope.BlogViewAdd=true;
         $scope.BlogErorr="";
         };
         
-        $scope.modalBlogSaveClosed = false;
+    $scope.modalBlogSaveClosed = false;
 //кнопка отмены добавления записи
     $scope.BlogSaveClosed = function(BlogZag,BlogText) {
         if((BlogZag==""||BlogZag==undefined)&&(BlogText==""||BlogText==undefined)){
@@ -58,9 +53,7 @@ siteApp.controller('Blog',
 //Отмена добавления записи    
     $scope.BlogSaveClosedNo = function() {$scope.modalBlogSaveClosed = !$scope.modalBlogSaveClosed;}
 //Закрытие формы добавления записи
-    $scope.BlogSaveClosedYes = function() {
-            clearClosedSave();
-        };
+    $scope.BlogSaveClosedYes = function() {clearClosedSave();};
 function clearClosedSave()  
     {
         $scope.BlogNewTags=[];
@@ -95,11 +88,9 @@ function clearClosedSave()
         };
 //Сохранение новой записи
     $scope.BlogSave = function (BlogMonth,BlogZag,BlogText){
-        var http=1,err="";
-    
+        var http=1,err="";    
         if(BlogZag==""||BlogZag==undefined){http=0;err+="Введите заголовок";}
-        if(BlogText==""||BlogText==undefined){http=0;err+=" Введите текст записи";}
-                
+        if(BlogText==""||BlogText==undefined){http=0;err+=" Введите текст записи";}                
             if(http){
                 //console.log(BlogMonth,BlogZag,BlogText,$scope.BlogNewTags);
                 $http.post('/web/index.php?r=site/blog',
@@ -120,8 +111,6 @@ function clearClosedSave()
                 });
             }
             $scope.BlogErorr=err;
-        
-        
     };
 
     $scope.FiltrActivMonth=[];
@@ -153,10 +142,8 @@ function clearClosedSave()
 //фильт доступных месяцев для выбора в фильтр
     $scope.filterNotInMonth = function(item) {
         var rez=1;
-        $scope.FiltrActivMonth.forEach(function(el, i, arr) {
-            
+        $scope.FiltrActivMonth.forEach(function(el, i, arr) {            
             if(item.value==el.value) rez=0;
-
           });
         return rez;
         };        
@@ -165,7 +152,6 @@ function clearClosedSave()
         var rez=1;
         $scope.FilterActivTag.forEach(function(el, i, arr) {
             if(item.id==el.id) rez=0;
-
           });
         return rez;//($scope.current().indexOf(item) == -1);
         };        
@@ -180,20 +166,16 @@ function clearClosedSave()
 //Обновление записе в зависимости от фильтра
     function getFilter()
         {
-            var url='/web/index.php?r=site/blog';
-            //console.log($scope.FiltrActivMonth);
-            
+            var url='/web/index.php?r=site/blog';            
             if($scope.FiltrActivMonth.length>0)
                 {
                     url+="&month=";
-                    $scope.FiltrActivMonth.forEach(function(el, i, arr) {
-                        
+                    $scope.FiltrActivMonth.forEach(function(el, i, arr) {                        
                         if(i>0)url+=",";
                         i++;
                         url+=el.value;
                    });
-                }
-                
+                }                
             if($scope.FilterActivTag.length>0)
                 {
                     url+="&tags=";
@@ -203,8 +185,7 @@ function clearClosedSave()
                         i++;
                         url+=el.id;
                    });
-                }
-            
+                }            
             $http.get(url)
                 .success(function(response) {
                     $rootScope.BlogBlock =response.text;
@@ -235,10 +216,7 @@ function clearClosedSave()
                         console.log(response);
                 });
         };
-        
-        
-        
-        //Сохранение новой записи
+//Сохранение новой записи
     $scope.BlogRating = function (rating,id){
         $scope.errorRating="";
                 $http.post('/web/index.php?r=site/rating',
@@ -254,7 +232,5 @@ function clearClosedSave()
                 function(response) {// failed
                     console.log(response);
                 });
-        
-        
     };
 });

@@ -5,9 +5,6 @@ use yii\db\ActiveRecord;
 
 class Blog extends ActiveRecord
 {
-     /**
-     * @inheritdoc
-     */
 public function GetBlogs($getMonth,$getTags) {
         $blog = new Blog;
         $WMonth="";
@@ -38,16 +35,13 @@ public function GetBlogs($getMonth,$getTags) {
                 foreach ($BlogTags as $BlogId)
                     {
                         if(!empty($WTag))$WTag.=" or ";
-                        $WTag.=" id=".$BlogId['id_blog'];
-                        
-                        
+                        $WTag.=" id=".$BlogId['id_blog']; 
                     }
-                 }
-                 else   {
+                }
+                else   {
                      if(!empty($WTag))$WTag.=" or ";
                         $WTag.=" id=-1";
-                 }
-                
+                }                
             }
             $where="";
             if(!empty($WMonth)&&!empty($WTag))
@@ -55,9 +49,7 @@ public function GetBlogs($getMonth,$getTags) {
                     $where="(".$WMonth.") AND (".$WTag.")";
                 }
                 else {$where=$WMonth.$WTag;}
-                //echo $where;
-        $blogMas=$blog->find()->where($where)->orderBy('month DESC, date DESC')->asArray()->all();
-        
+        $blogMas=$blog->find()->where($where)->orderBy('month DESC, date DESC')->asArray()->all();        
         return $blogMas;
     }
     
@@ -70,13 +62,14 @@ public function getUsers()
             {
                 $users[$userEl['id']]=$userEl['username'];
             }
-        return $users;    
-    
+        return $users;        
     }
+    
 public function GetMonth()
     {
     return array(1=>"Январь",2=>"Февраль",3=>"Март",4=>"Апрель",5=>"Май",6=>"Июнь",7=>"Июль",8=>"Август",9=>"Сентябрь",10=>"Октябрь",11=>"Ноябрь",12=>"Декабрь");
     }
+    
 public function GetTags()
     {
         $tag= new Tags;
@@ -88,6 +81,7 @@ public function GetTags()
             }
         return $tags;
     }
+    
 public function GetRating()
     {
         $Ratig= new Rating;
@@ -106,8 +100,7 @@ public function GetRating()
                             $ratig[$RatigsEl['id_blog']]['summa']=$RatigsEl['rating'];
                             $ratig[$RatigsEl['id_blog']]['count']=1;
                         }
-            }
-        
+            }        
         return $ratig;
     }
     
@@ -126,16 +119,14 @@ public function GetBlogTags()
                         {
                             $BlogTagMas[$BlogTagEl['id_blog']]=array();
                             array_push($BlogTagMas[$BlogTagEl['id_blog']], $BlogTagEl['id_tags']);
-                        }
-
-                
+                        }                
             }
         return $BlogTagMas;
     }
-    public function BlogTags() {
+    
+public function BlogTags() {
         $tags = new Tags;
         $TagsMas=$tags->find()->select("id,name_tag as name")->asArray()->orderBy('name')->all();
-       // $array = get_object_vars($object);
         $rezMas="[";
         $i=0;
         foreach ($TagsMas as $tag)
@@ -147,22 +138,18 @@ public function GetBlogTags()
             $rezMas.="]";
             return $TagsMas;
     }
+    
 public function addBlog($data,$id){
     $rez=array();
     $rez['error']=0;
     if(!empty($data["header"])&&!empty($data["text"])&&!empty($data["month"])&&!empty($id))
     {   
-        //$count = Blog::find()->where(['username' => $data["username"]])->count();
-        
-        
-            $AddBlog = new Blog;
-            
+            $AddBlog = new Blog;            
             $AddBlog->id_user=$id;
             $AddBlog->header=$data["header"];
             $AddBlog->text=$data["text"];
             $AddBlog->month=$data["month"];
             $AddBlog->date=time();
-            //print_r($data['tags']);
             $AddBlog->save();
             $idBlog=$AddBlog->id;
             if(!empty($data['tags'])){
@@ -187,8 +174,6 @@ public function addBlog($data,$id){
                                 $AddBlogTags->save();
                             }
                     }
-                
-                
             }
     }
     else{
@@ -196,8 +181,6 @@ public function addBlog($data,$id){
         $rez['errorMess']='Не все данные заполнены';
     }
     echo json_encode($rez);
-    
-    
 }
 
 public function DelBlog($data)
@@ -208,14 +191,11 @@ public function DelBlog($data)
             {
                 $Blog= new Blog;
                 $BlogDel=$Blog->findOne($data["id"]);
-                $BlogDel->delete();
-                
+                $BlogDel->delete();                
                 $BlogTag= new Blog_tag;
-                //$BlogTags=$BlogTag->find()->where("id_blog=".$data["id"])->asArray()->all();
                 $BlogTag->deleteAll("id_blog=".$data["id"]);
                 $Comment=new Comments;
-                $Comment->deleteAll("id_blog=".$data["id"]);
-                
+                $Comment->deleteAll("id_blog=".$data["id"]);                
                 $Rating=new Rating;
                 $Rating->deleteAll("id_blog=".$data["id"]);
             }
@@ -226,19 +206,16 @@ public function DelBlog($data)
         echo json_encode($rez);
     }
     
-    
-    
 public function addRating($data,$id){
     $rez=array();
     $rez['error']=0;
     if(!empty($data["rating"])&&!empty($data["id"]))
     {   
-            $AddRating = new Rating;
-            
-            $AddRating->id_blog=$data["id"];
-            $AddRating->id_user=$id;
-            $AddRating->rating=$data["rating"];
-            $AddRating->save();
+        $AddRating = new Rating;            
+        $AddRating->id_blog=$data["id"];
+        $AddRating->id_user=$id;
+        $AddRating->rating=$data["rating"];
+        $AddRating->save();
     }
     else{
         $rez['error']=1;
